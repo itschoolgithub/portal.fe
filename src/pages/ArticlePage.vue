@@ -5,7 +5,7 @@
     <p>
        {{ article.content }} 
     </p>
-    <img :src="article.image" alt="">
+    <img :src="article.image" alt="" v-if="article.image">
 </template>
 
 <script>
