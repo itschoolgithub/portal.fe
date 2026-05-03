@@ -6,21 +6,66 @@
     </div>
     <div class="row">
         <div class="col-4 offset-4">
+            <div
+                class="alert alert-danger mb-3"
+                v-if="error"
+            >
+                {{ error }}
+            </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    placeholder="name@example.com"
+                    v-model="email"
+                >
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Пароль</label>
-                <input type="password" class="form-control" id="password" placeholder="******">
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="******"
+                    v-model="password"
+                >
             </div>
-            <button class="btn btn-primary">Войти</button>
+            <button
+                class="btn btn-primary"
+                @click="onSubmit"
+            >Войти</button>
         </div>
     </div>
 </template>
 
 <script>
+import api from '@/api';
+
 export default {
-    
+    data() {
+        return {
+            email: '',
+            password: '',
+            error: ''
+        };
+    },
+    methods: {
+        async onSubmit() {
+            this.error = '';
+            try {
+                const response = await api.post('/login', {
+                    email: this.email,
+                    password: this.password
+                });
+                console.log(response.data);
+            } catch (e) {
+                if (e.status == '422') {
+                    this.error = e.response.data.message;
+                }
+            }
+        }
+    }
 }
 </script>

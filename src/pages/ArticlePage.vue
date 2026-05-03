@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "@/api";
 export default {
     data() {
         return {
@@ -22,7 +22,7 @@ export default {
     },
     methods: {
         async loadArticle() {
-            const response = await axios.get("http://portal.be/api/articles/" + this.articleId);
+            const response = await api.get("/articles/" + this.articleId);
             this.article = response.data;
         }
     },

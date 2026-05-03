@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/api';
 import ArticleCard from '@/components/ArticleCard.vue';
 export default {
     components: {
@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         async loadArticles() {
-            const response = await axios.get('http://portal.be/api/articles');
+            const response = await api.get('/articles');
             this.articles = response.data;
         },
     }
