@@ -59,7 +59,11 @@ export default {
                     email: this.email,
                     password: this.password
                 });
-                console.log(response.data);
+                localStorage.setItem('token', response.data.token);
+
+                this.email = '';
+                this.password = '';
+                this.$router.push('/');
             } catch (e) {
                 if (e.status == '422') {
                     this.error = e.response.data.message;
