@@ -7,16 +7,27 @@
         Portal
       </router-link>
       <ul class="nav">
-        <li class="nav-item">
-          <router-link class="nav-link" :to="{name: 'login'}">
-            Вход
-          </router-link>
+        <li class="nav-item" v-if="isAuth">
+          <a
+            class="nav-link"
+            href="javascript:"
+            @click="logout"
+            >
+            Выйти
+          </a>
         </li>
-        <li class="nav-item">
-          <router-link class="nav-link" :to="{name: 'register'}">
-            Регистрация
-          </router-link>
-        </li>
+        <template v-else>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name: 'login'}">
+              Вход
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{name: 'register'}">
+              Регистрация
+            </router-link>
+          </li>
+        </template>
       </ul>
     </div>
   </nav>
@@ -27,8 +38,23 @@
 </template>
 
 <script>
-export default {
+import { useAuthStore } from '@/stores/authStore';
 
+export default {
+  computed: {
+    authStore() {
+      return useAuthStore();
+    },
+    isAuth() {
+      return this.authStore.isAuth;
+    }
+  },
+  methods: {
+    logout() {
+      this.authStore.logout();
+      this.$router.push('/login');
+    }
+  }
 }
 </script>
 

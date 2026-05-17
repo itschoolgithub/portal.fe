@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import api from '@/api';
+import { useAuthStore } from "@/stores/authStore"
 
 export default {
     data() {
@@ -55,11 +55,10 @@ export default {
         async onSubmit() {
             this.error = '';
             try {
-                const response = await api.post('/login', {
+                await useAuthStore().login({
                     email: this.email,
                     password: this.password
                 });
-                localStorage.setItem('token', response.data.token);
 
                 this.email = '';
                 this.password = '';
