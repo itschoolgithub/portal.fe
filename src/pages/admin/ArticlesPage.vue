@@ -6,7 +6,10 @@
     </div>
     <div class="row my-3">
         <div class="col">
-            <button class="btn btn-success">Добавить статью</button>
+            <router-link
+                :to="{ name: 'admin_articles_create'}"
+                class="btn btn-success"
+            >Добавить статью</router-link>
         </div>
     </div>
     <div class="row">
@@ -40,7 +43,10 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-primary">📝</button>
+                                <router-link
+                                    :to="{ name: 'admin_articles_edit', params: { id: article.id } }"
+                                    class="btn btn-sm btn-outline-primary" 
+                                >📝</router-link>
                                 <button
                                     class="btn btn-sm btn-outline-danger"
                                     @click="deleteArticle(article.id)"
